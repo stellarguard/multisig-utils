@@ -1,6 +1,6 @@
 {
-  "name": "stellar-multisig",
-  "version": "1.0.0",
+  "name": "@stellarguard/stellar-multisig",
+  "version": "0.0.1",
   "description": "Tools for working with Stellar mulitsig.",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
@@ -51,7 +51,14 @@
   "engines": {
     "node": ">=8.9"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@types/stellar-sdk": "^0.10.2",
+    "axios": "^0.18.0",
+    "stellar-sdk": "^0.11.0"
+  },
+  "peerDependencies": {
+    "stellar-sdk": "*"
+  },
   "devDependencies": {
     "ava": "1.0.0-beta.7",
     "codecov": "^3.1.0",
