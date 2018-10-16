@@ -85,7 +85,7 @@ yarn add @stellarguard/multisig-utils</code></pre>
 
   <span class="hljs-keyword">const</span> result = submitToMultisigServer(transaction, multisigEndpoint);
 
-  <span class="hljs-keyword">if</span> (result.isStellarGuard) {
+  <span class="hljs-keyword">if</span> (result.stellarGuard) {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Authorize your transaction at <span class="hljs-subst">${result.url}</span>`</span>);
   }
 }</code></pre>
