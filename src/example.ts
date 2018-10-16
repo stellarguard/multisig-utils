@@ -1,7 +1,7 @@
 import { Network, Server, Transaction } from 'stellar-sdk';
 import {
   getMultisigServerEndpoint,
-  needsAdditionalSignatures,
+  needsMoreSignatures,
   submitToMultisigServer
 } from './lib/multisig';
 
@@ -12,14 +12,11 @@ async function example(): Promise<any> {
   Network.useTestNetwork();
   const server = new Server('https://horizon-testnet.stellar.org');
 
-  const requiresSignatures = await needsAdditionalSignatures(
-    transaction,
-    server
-  );
+  const requiresSignatures = await needsMoreSignatures(transaction, server);
 
   if (requiresSignatures) {
     console.log(
-      `Requires additional signatures for: ${requiresSignatures.map(
+      `Requires more signatures for: ${requiresSignatures.map(
         s => s.account.id
       )}`
     );
@@ -29,7 +26,7 @@ async function example(): Promise<any> {
       return submitToMultisigServer(transaction, multisigServerEndpoint);
     } else {
       console.log(
-        'Requires additional signature, but no multisig endpoint defined for ' +
+        'Requires more signature, but no multisig endpoint defined for ' +
           account.id
       );
       // no multisig endpoint defined, do whatever you want with it:
@@ -37,7 +34,7 @@ async function example(): Promise<any> {
       // - submit to generic multisig server?
     }
   } else {
-    console.log('No additional signatures required, submitting to horizon.');
+    console.log('No more signatures required, submitting to horizon.');
     return server.submitTransaction(transaction);
   }
 }

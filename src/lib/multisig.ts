@@ -10,22 +10,36 @@ import {
 
 import axios from 'axios';
 
+/**
+ * The threshold categories that correspond to different operation types.
+ */
 export enum ThresholdCategory {
   Low = 1,
   Medium = 2,
   High = 3
 }
 
-export interface AdditionalNeededSignature {
+/**
+ *
+ */
+export interface NeedsSignatures {
   account: AccountResponse;
   requiredWeight: number;
   currentWeight: number;
 }
 
-export async function needsAdditionalSignatures(
+/**
+ * Checks whether an account needs more signatures to satisfy the source account weights.
+ * Returns false if the transaction is fully satisfied, or an array of objects containing the account that needs more
+ * signatures as well as the required weight and the current weight that is satisfied.
+ *
+ * @param transaction The transaction to check.
+ * @param server A horizon server that is used to look up accounts.
+ */
+export async function needsMoreSignatures(
   transaction: Transaction,
   server: Server
-): Promise<AdditionalNeededSignature[] | false> {
+): Promise<NeedsSignatures[] | false> {
   const sourceAccounts = await getSourceAccounts(transaction, server);
   const thresholdCategories = getTransactionSourceThresholdCategories(
     transaction
@@ -186,6 +200,11 @@ function getSignatureWeights(
   }));
 }
 
+/**
+ * Returns true if the account has signed the given transaction. False otherwise.
+ * @param account The account to check.
+ * @param transaction The transaction to check.
+ */
 export function hasAccountSignedTransaction(
   account: string,
   transaction: Transaction
@@ -199,7 +218,7 @@ export function hasAccountSignedTransaction(
 function getAccountsThatNeedAdditionalSignatures(
   accountWeights: AccountSignatureWeight[],
   requiredWeights: Map<AccountResponse, Weight>
-): AdditionalNeededSignature[] {
+): NeedsSignatures[] {
   return accountWeights
     .map(({ account, currentWeight }) => {
       const requiredWeight = requiredWeights.get(account);
@@ -208,6 +227,12 @@ function getAccountsThatNeedAdditionalSignatures(
     .filter(s => s.requiredWeight > s.currentWeight);
 }
 
+/**
+ * Checks whether the account has a multisig server defined in its data.
+ * If so, it loads the stellar.toml associated with that server and returns the MULTISIG_SERVER key.
+ *
+ * @param account The account to get the multisig server endpoint for.
+ */
 export async function getMultisigServerEndpoint(
   account: AccountResponse
 ): Promise<string | undefined> {

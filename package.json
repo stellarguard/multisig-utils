@@ -1,11 +1,11 @@
 {
-  "name": "@stellarguard/stellar-multisig",
+  "name": "@stellarguard/multisig-utils",
   "version": "0.0.1",
-  "description": "Tools for working with Stellar mulitsig.",
+  "description": "Utilities for working with Stellar mulitsig.",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
   "module": "build/module/index.js",
-  "repository": "https://github.com/pselden/stellar-multisig",
+  "repository": "https://github.com/stellarguard/multisig-utils",
   "license": "MIT",
   "keywords": [],
   "scripts": {
@@ -32,8 +32,7 @@
     "reset": "git clean -dfx && git reset --hard && npm i",
     "clean": "trash build test",
     "all": "run-s reset test cov:check doc:html",
-    "prepare-release": "run-s all version doc:publish",
-    "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('stellar-multisig must be installed with Yarn: https://yarnpkg.com/')\""
+    "prepare-release": "run-s all version doc:publish"
   },
   "scripts-info": {
     "info": "Display information about the package scripts",
@@ -52,9 +51,8 @@
     "node": ">=8.9"
   },
   "dependencies": {
-    "@types/stellar-sdk": "^0.10.2",
-    "axios": "^0.18.0",
-    "stellar-sdk": "^0.11.0"
+    "@types/stellar-sdk": "^0.10.3",
+    "axios": "^0.18.0"
   },
   "peerDependencies": {
     "stellar-sdk": "*"
@@ -69,6 +67,7 @@
     "opn-cli": "^3.1.0",
     "prettier": "^1.14.3",
     "standard-version": "^4.4.0",
+    "stellar-sdk": "^0.11.0",
     "trash-cli": "^1.4.0",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",

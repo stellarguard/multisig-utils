@@ -452,9 +452,9 @@
     "@types/glob" "*"
     "@types/node" "*"
 
-"@types/stellar-sdk@^0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@types/stellar-sdk/-/stellar-sdk-0.10.2.tgz#5f7529917ab3d48384ea03aee2d38fe5db9d8cf6"
+"@types/stellar-sdk@^0.10.3":
+  version "0.10.3"
+  resolved "https://registry.yarnpkg.com/@types/stellar-sdk/-/stellar-sdk-0.10.3.tgz#798beb13a67210f6d5f71a8e912fe1e7a8a935c4"
   dependencies:
     "@types/node" "*"
 
