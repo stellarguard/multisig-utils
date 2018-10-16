@@ -269,7 +269,7 @@ export interface StellarGuardMultisigServerResponse
   /**
    * This indicates that the response is from StellarGuard
    */
-  isStellarGuard: true;
+  stellarGuard: true;
 
   /**
    * The url to authorize the StellarGuard transaction

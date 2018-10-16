@@ -27,7 +27,7 @@ if (moreSignatures) {
 
   const result = submitToMultisigServer(transaction, multisigEndpoint);
 
-  if (result.isStellarGuard) {
+  if (result.stellarGuard) {
     console.log(`Authorize your transaction at ${result.url}`);
   }
 }
