@@ -19,12 +19,20 @@ export enum ThresholdCategory {
   High = 3
 }
 
-/**
- *
- */
 export interface NeedsSignatures {
+  /**
+   * The account that needs more signatures.
+   */
   account: AccountResponse;
+
+  /**
+   * The required weight for this transaction.
+   */
   requiredWeight: number;
+
+  /**
+   * The weight that is currently satisfied for this account in the transaction.
+   */
   currentWeight: number;
 }
 
@@ -35,12 +43,14 @@ export interface NeedsSignatures {
  *
  * @param transaction The transaction to check.
  * @param server A horizon server that is used to look up accounts.
+ * @param accounts A list of accounts to use instead of looking them up with the server.
  */
 export async function needsMoreSignatures(
   transaction: Transaction,
-  server: Server
+  server: Server,
+  ...accounts: AccountResponse[]
 ): Promise<NeedsSignatures[] | false> {
-  const sourceAccounts = await getSourceAccounts(transaction, server);
+  const sourceAccounts = await getSourceAccounts(transaction, server, accounts);
   const thresholdCategories = getTransactionSourceThresholdCategories(
     transaction
   );
@@ -98,9 +108,12 @@ function getAccountThresholdWeight(
 
 async function getSourceAccounts(
   transaction: Transaction,
-  server: Server
+  server: Server,
+  accounts: AccountResponse[] = []
 ): Promise<AccountResponse[]> {
   const sources = new Set<string>([transaction.source]);
+  const cachedAccounts = new Map<string, AccountResponse>();
+  accounts.forEach(account => cachedAccounts.set(account.id, account));
   transaction.operations.forEach(operation => {
     if (operation.source) {
       sources.add(operation.source);
@@ -108,7 +121,9 @@ async function getSourceAccounts(
   });
 
   return Promise.all(
-    Array.from(sources).map(source => server.loadAccount(source))
+    Array.from(sources).map(
+      source => cachedAccounts.get(source) || server.loadAccount(source)
+    )
   );
 }
 
