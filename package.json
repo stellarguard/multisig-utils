@@ -1,6 +1,6 @@
 {
   "name": "@stellarguard/multisig-utils",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Utilities for working with Stellar mulitsig.",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
