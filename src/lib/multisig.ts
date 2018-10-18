@@ -289,11 +289,11 @@ export async function submitToMultisigServer(
   multisigServerEndpoint: string,
   { callback }: { callback?: string } = {}
 ): Promise<MultisigServerResponse> {
-  const xdr = transaction.toEnvelope().toXDR('base64');
+  const tx = transaction.toEnvelope().toXDR('base64');
 
   const response = await axios.post<MultisigServerResponse>(
     multisigServerEndpoint,
-    { xdr, callback }
+    { tx, callback }
   );
 
   return response.data;
