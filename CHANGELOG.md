@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.2"></a>
+## [0.2.2](https://github.com/stellarguard/multisig-utils/compare/v0.2.1...v0.2.2) (2018-10-18)
+
+
+### Bug Fixes
+
+* Use `tx` instead of `xdr` when submitting to multisig endpoint. ([79a97eb](https://github.com/stellarguard/multisig-utils/commit/79a97eb))
+
+
+
 <a name="0.2.1"></a>
 ## [0.2.1](https://github.com/stellarguard/multisig-utils/compare/v0.2.0...v0.2.1) (2018-10-16)
 
