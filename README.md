@@ -15,17 +15,18 @@ yarn add @stellarguard/multisig-utils
 ```js
 import {
   needsMoreSignatures,
-  getMultisigServerEndpoint
+  getMultisigServerEndpoint,
+  submitToMultisigServer
 } from '@stellarguard/multisig-utils';
 
-const moreSignatures = needsMoreSignatures(transaction, server);
+const moreSignatures = await needsMoreSignatures(transaction, server);
 
 if (moreSignatures) {
   const multisigEndpoint = await getMultisigServerEndpoint(
     moreSignatures[0].account
   );
 
-  const result = submitToMultisigServer(transaction, multisigEndpoint);
+  const result = await submitToMultisigServer(transaction, multisigEndpoint);
 
   if (result.stellarGuard) {
     console.log(`Authorize your transaction at ${result.url}`);
