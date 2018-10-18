@@ -23,6 +23,7 @@ async function example(): Promise<any> {
     const account = requiresSignatures[0].account; // how do we decide who we send this to? should we loop looking for a multisig endpoint?
     const multisigServerEndpoint = await getMultisigServerEndpoint(account);
     if (multisigServerEndpoint) {
+      console.log(`Submitting to multisig server: ${multisigServerEndpoint}`);
       return submitToMultisigServer(transaction, multisigServerEndpoint);
     } else {
       console.log(
