@@ -73,17 +73,18 @@ yarn add @stellarguard/multisig-utils</code></pre>
 				<h2 id="usage">Usage</h2>
 				<pre><code class="language-js"><span class="hljs-keyword">import</span> {
   needsMoreSignatures,
-  getMultisigServerEndpoint
+  getMultisigServerEndpoint,
+  submitToMultisigServer
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@stellarguard/multisig-utils'</span>;
 
-<span class="hljs-keyword">const</span> moreSignatures = needsMoreSignatures(transaction, server);
+<span class="hljs-keyword">const</span> moreSignatures = <span class="hljs-keyword">await</span> needsMoreSignatures(transaction, server);
 
 <span class="hljs-keyword">if</span> (moreSignatures) {
   <span class="hljs-keyword">const</span> multisigEndpoint = <span class="hljs-keyword">await</span> getMultisigServerEndpoint(
     moreSignatures[<span class="hljs-number">0</span>].account
   );
 
-  <span class="hljs-keyword">const</span> result = submitToMultisigServer(transaction, multisigEndpoint);
+  <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> submitToMultisigServer(transaction, multisigEndpoint);
 
   <span class="hljs-keyword">if</span> (result.stellarGuard) {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Authorize your transaction at <span class="hljs-subst">${result.url}</span>`</span>);
