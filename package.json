@@ -25,7 +25,7 @@
     "cov:send": "nyc report --reporter=lcov > coverage.lcov && codecov",
     "cov:check": "nyc report && nyc check-coverage --lines 50 --functions 50 --branches 50",
     "demo": "parcel demo/index.html -d build/docs/demo",
-    "doc": "run-s doc:html && opn build/docs/index.html",
+    "doc": "run-s doc:html doc:demo && opn build/docs/index.html",
     "doc:html": "typedoc src/ --target ES6 --mode file --out build/docs",
     "doc:json": "typedoc src/ --target ES6 --mode file --json build/docs/typedoc.json",
     "doc:demo": "parcel build demo/index.html -d build/docs/demo",
