@@ -262,11 +262,11 @@ export async function getMultisigServerEndpoint(
   return toml.MULTISIG_SERVER;
 }
 
-// tslint:disable-next-line:no-empty-interface
-export interface MultisigServerResponse {}
+export interface MultisigServerResponse {
+  [key: string]: any;
+}
 
-export interface StellarGuardMultisigServerResponse
-  extends MultisigServerResponse {
+export interface StellarGuardResponse extends MultisigServerResponse {
   /**
    * This indicates that the response is from StellarGuard
    */
