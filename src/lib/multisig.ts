@@ -227,7 +227,10 @@ export function hasAccountSignedTransaction(
 ): boolean {
   const keypair = Keypair.fromPublicKey(account);
   return transaction.signatures.some(signature => {
-    return keypair.verify(transaction.hash(), signature.signature());
+    return (
+      keypair.signatureHint().toString() === signature.hint().toString() && // compare hints because verify is much more expensive
+      keypair.verify(transaction.hash(), signature.signature())
+    );
   });
 }
 

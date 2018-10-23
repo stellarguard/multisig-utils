@@ -8,7 +8,11 @@ import {
   Server,
   TransactionBuilder
 } from 'stellar-sdk';
-import { needsMoreSignatures, NeedsSignatures } from './multisig';
+import {
+  hasAccountSignedTransaction,
+  needsMoreSignatures,
+  NeedsSignatures
+} from './multisig';
 
 const server = new Server('https://horizon-testnet.stellar.org');
 
@@ -210,4 +214,67 @@ test('needsAdditionalSignatures with multiple sources returns all accounts that 
   t.is(second.account.id, multiSigAccount.publicKey());
   t.is(second.currentWeight, 0);
   t.is(second.requiredWeight, 2);
+});
+
+test('hasAccountSignedTransaction returns false when the account has not signed the transaction', async t => {
+  const source = await server.loadAccount(basicAccount.publicKey());
+  const transaction = new TransactionBuilder(source)
+    .addOperation(
+      Operation.payment({
+        amount: '1',
+        asset: Asset.native(),
+        destination: basicAccount.publicKey()
+      })
+    )
+    .build();
+
+  transaction.sign(multiSigAccount);
+
+  t.false(hasAccountSignedTransaction(basicAccount.publicKey(), transaction));
+});
+
+test('hasAccountSignedTransaction returns false when the transaction includes a signature for a different transaction', async t => {
+  const source = await server.loadAccount(basicAccount.publicKey());
+  const transaction = new TransactionBuilder(source)
+    .addOperation(
+      Operation.payment({
+        amount: '1',
+        asset: Asset.native(),
+        destination: basicAccount.publicKey()
+      })
+    )
+    .build();
+
+  const otherTx = new TransactionBuilder(source)
+    .addOperation(
+      Operation.payment({
+        amount: '2',
+        asset: Asset.native(),
+        destination: basicAccount.publicKey()
+      })
+    )
+    .build();
+
+  otherTx.sign(basicAccount);
+
+  transaction.signatures.push(...otherTx.signatures);
+
+  t.false(hasAccountSignedTransaction(basicAccount.publicKey(), transaction));
+});
+
+test('hasAccountSignedTransaction returns true when the transaction is signed by the user', async t => {
+  const source = await server.loadAccount(basicAccount.publicKey());
+  const transaction = new TransactionBuilder(source)
+    .addOperation(
+      Operation.payment({
+        amount: '1',
+        asset: Asset.native(),
+        destination: basicAccount.publicKey()
+      })
+    )
+    .build();
+
+  transaction.sign(basicAccount);
+
+  t.true(hasAccountSignedTransaction(basicAccount.publicKey(), transaction));
 });
