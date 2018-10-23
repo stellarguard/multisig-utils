@@ -255,12 +255,12 @@ function getAccountsThatNeedAdditionalSignatures(
 export async function getMultisigServerEndpoint(
   account: AccountResponse
 ): Promise<string | undefined> {
-  const multisigServer = account.data_attr && account.data_attr.multisig_server;
-  if (!multisigServer) {
+  const multisigDomain = account.data_attr && account.data_attr.multisig_domain;
+  if (!multisigDomain) {
     return undefined;
   }
 
-  const url = Buffer.from(multisigServer, 'base64').toString();
+  const url = Buffer.from(multisigDomain, 'base64').toString();
   const toml = await StellarTomlResolver.resolve(url);
   return toml.MULTISIG_SERVER;
 }
