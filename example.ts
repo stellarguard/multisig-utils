@@ -1,10 +1,10 @@
-import { TransactionStellarUri } from '@stellarguard/stellar-uri';
-import { Network, Server, Transaction } from 'stellar-sdk';
 import {
   getMultisigServerEndpoint,
   needsMoreSignatures,
   submitToMultisigServer
-} from './lib/multisig';
+} from '@stellarguard/multisig-utils';
+import { TransactionStellarUri } from '@stellarguard/stellar-uri';
+import { Network, Server, Transaction } from 'stellar-sdk';
 
 async function example(): Promise<any> {
   const xdr =

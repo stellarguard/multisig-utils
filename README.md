@@ -36,7 +36,7 @@ if (moreSignatures) {
 
 ## Examples
 
-See [src/example.ts](https://github.com/stellarguard/multisig-utils/blob/master/src/example.ts) for examples.
+See [example.ts](https://github.com/stellarguard/multisig-utils/blob/master/src/example.ts) for examples.
 
 Try a [live demo](https://stellarguard.github.io/multisig-utils/demo).
 
