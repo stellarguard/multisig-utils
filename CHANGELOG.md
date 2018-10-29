@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/stellarguard/multisig-utils/compare/v0.2.6...v0.3.0) (2018-10-29)
+
+
+### Bug Fixes
+
+* Rename data.multisig_server to multisig_domain ([88e600d](https://github.com/stellarguard/multisig-utils/commit/88e600d))
+
+
+### Features
+
+* Use SEP-0007 stellar uris when submitting to multisig endpoints ([760d604](https://github.com/stellarguard/multisig-utils/commit/760d604))
+
+
+### Performance Improvements
+
+* Check signature hints before doing full verify. ([da16510](https://github.com/stellarguard/multisig-utils/commit/da16510))
+
+
+
 <a name="0.2.6"></a>
 ## [0.2.6](https://github.com/stellarguard/multisig-utils/compare/v0.2.5...v0.2.6) (2018-10-19)
 
