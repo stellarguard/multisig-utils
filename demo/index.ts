@@ -48,7 +48,7 @@ function reset(): void {
 
 async function submit(xdr: string): Promise<any> {
   const transaction = new Transaction(xdr);
-  log('Checking if the transaction requires mroe signatures...');
+  log('Checking if the transaction requires more signatures...');
   const requiresSignatures = await needsMoreSignatures(transaction, server);
   if (requiresSignatures) {
     log(
