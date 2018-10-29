@@ -1,3 +1,4 @@
+import { TransactionStellarUri } from '@stellarguard/stellar-uri';
 import { Network, Server, Transaction } from 'stellar-sdk';
 import {
   getMultisigServerEndpoint,
@@ -22,16 +23,20 @@ async function example(): Promise<any> {
     );
     const account = requiresSignatures[0].account; // how do we decide who we send this to? should we loop looking for a multisig endpoint?
     const multisigServerEndpoint = await getMultisigServerEndpoint(account);
+    const stellarUri = TransactionStellarUri.forTransaction(transaction);
     if (multisigServerEndpoint) {
       console.log(`Submitting to multisig server: ${multisigServerEndpoint}`);
-      return submitToMultisigServer(transaction, multisigServerEndpoint);
+      return submitToMultisigServer(
+        stellarUri.toString(),
+        multisigServerEndpoint
+      );
     } else {
       console.log(
         'Requires more signature, but no multisig endpoint defined for ' +
           account.id
       );
       // no multisig endpoint defined, do whatever you want with it:
-      // - show SEP-007 url?
+      // - show SEP-007 url or QR code?
       // - submit to generic multisig server?
     }
   } else {

@@ -282,24 +282,21 @@ export interface StellarGuardResponse extends MultisigServerResponse {
 }
 
 /**
- * Submits a transaction to a multisig server endpoint.
+ * Submits a SEP-0007 style URI to a multisig server endpoint.
  *
- * @param transaction The transaction to submit
+ * @param stellarUri A SEP-0007 style "tx" URI representing the transaction to submit.
  * @param multisigServerEndpoint The multisig endpoint to submit to.
- * @param options Additional options, such as a callback.
+ *
+ * @see https://github.com/stellarguard/stellar-uri for one way to generate the URI string.
  */
 export async function submitToMultisigServer(
-  transaction: Transaction,
-  multisigServerEndpoint: string,
-  { callback }: { callback?: string } = {}
+  stellarUri: string,
+  multisigServerEndpoint: string
 ): Promise<MultisigServerResponse> {
-  const tx = transaction.toEnvelope().toXDR('base64');
-  const params: { tx: string; callback?: string } = {
-    tx
+  const params = {
+    uri: stellarUri
   };
-  if (callback) {
-    params.callback = callback;
-  }
+
   const response = await axios.post<MultisigServerResponse>(
     multisigServerEndpoint,
     querystring.stringify(params)

@@ -5,6 +5,9 @@ import {
   submitToMultisigServer
 } from '../src/';
 
+import 'babel-polyfill';
+
+import { TransactionStellarUri } from '@stellarguard/stellar-uri';
 import { Network, Server, Transaction } from 'stellar-sdk';
 
 const server = new Server('https://horizon-testnet.stellar.org');
@@ -53,12 +56,14 @@ async function submit(xdr: string): Promise<any> {
         s => s.account.id
       )}`
     );
-    const account = requiresSignatures[0].account; // how do we decide who we send this to? should we loop looking for a multisig endpoint?
+    const account = requiresSignatures[0].account;
     const multisigServerEndpoint = await getMultisigServerEndpoint(account);
+    const stellarUri = TransactionStellarUri.forTransaction(transaction);
+    log(`Generated SEP-0007 uri for submission: ${stellarUri.toString()}`);
     if (multisigServerEndpoint) {
       log(`Submitting to multisig server: ${multisigServerEndpoint}`);
       const result = await submitToMultisigServer(
-        transaction,
+        stellarUri.toString(),
         multisigServerEndpoint
       );
       if (result.stellarGuard) {
