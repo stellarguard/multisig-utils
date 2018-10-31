@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.2"></a>
+## [0.3.2](https://github.com/stellarguard/multisig-utils/compare/v0.3.1...v0.3.2) (2018-10-31)
+
+
+### Bug Fixes
+
+* Use multisig.domain instead of multisig_domain to align with namespaces proposal ([72146bb](https://github.com/stellarguard/multisig-utils/commit/72146bb))
+
+
+
 <a name="0.3.1"></a>
 ## [0.3.1](https://github.com/stellarguard/multisig-utils/compare/v0.3.0...v0.3.1) (2018-10-29)
 
