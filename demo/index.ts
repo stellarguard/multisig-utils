@@ -66,11 +66,11 @@ async function submit(xdr: string): Promise<any> {
         stellarUri.toString(),
         multisigServerEndpoint
       );
-      if (result.stellarGuard) {
+      if (result.extras && result.extras.isStellarGuard) {
         const stellarGuardResponse = result as StellarGuardResponse;
         log(
           `Submitted to StellarGuard. Go to ${
-            stellarGuardResponse.url
+            stellarGuardResponse.extras.url
           } to authorize. (The demo user is stellarguard-demo@mailinator.com/stellarguard)`
         );
       } else {
@@ -78,6 +78,7 @@ async function submit(xdr: string): Promise<any> {
           `Successfully submitted to multisig server: ${JSON.stringify(result)}`
         );
       }
+      log(`Check the status at: ${result._links.status.href}`);
     } else {
       log(
         `Requires more signature, but no multisig endpoint defined for ${
