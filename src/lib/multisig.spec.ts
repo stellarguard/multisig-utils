@@ -9,6 +9,7 @@ import {
   TransactionBuilder
 } from 'stellar-sdk';
 import {
+  getSigners,
   hasAccountSignedTransaction,
   needsMoreSignatures,
   NeedsSignatures
@@ -277,4 +278,41 @@ test('hasAccountSignedTransaction returns true when the transaction is signed by
   transaction.sign(basicAccount);
 
   t.true(hasAccountSignedTransaction(basicAccount.publicKey(), transaction));
+});
+
+test('getSigners gets all signers for a transaction', async t => {
+  const source = await server.loadAccount(basicAccount.publicKey());
+  const transaction = new TransactionBuilder(source)
+    .addOperation(
+      Operation.payment({
+        amount: '1',
+        asset: Asset.native(),
+        destination: basicAccount.publicKey()
+      })
+    )
+    .addOperation(
+      Operation.payment({
+        amount: '1',
+        asset: Asset.native(),
+        destination: twoSignersAccount.publicKey(),
+        source: twoSignersAccount.publicKey()
+      })
+    )
+    .addOperation(
+      Operation.payment({
+        amount: '1',
+        asset: Asset.native(),
+        destination: multiSigAccount.publicKey(),
+        source: multiSigAccount.publicKey()
+      })
+    )
+    .build();
+
+  transaction.sign(basicAccount);
+  transaction.sign(twoSignersAccount);
+
+  const signers = await getSigners(transaction, server);
+  t.true(signers.length === 2, 'Should have 2 signers');
+  t.true(signers.includes(basicAccount.publicKey()));
+  t.true(signers.includes(twoSignersAccount.publicKey()));
 });

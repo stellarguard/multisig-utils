@@ -106,7 +106,14 @@ function getAccountThresholdWeight(
   return Math.max(1, weight);
 }
 
-async function getSourceAccounts(
+/**
+ * Gets a list of source accounts for the given transaction.
+ *
+ * @param transaction The transaction
+ * @param server The Horizon server to use to look up account details
+ * @param accounts A list of accounts to use instead of looking them up on horizon;
+ */
+export async function getSourceAccounts(
   transaction: Transaction,
   server: Server,
   accounts: AccountResponse[] = []
@@ -125,6 +132,37 @@ async function getSourceAccounts(
       source => cachedAccounts.get(source) || server.loadAccount(source)
     )
   );
+}
+
+/**
+ * Returns a list of public keys that have signed the transaction.
+ *
+ * @param transaction The transaction to check.
+ * @param server The server to use to look up source accounts.
+ * @param accounts A list of accounts to use instead of looking them up on horizon;
+ */
+export async function getSigners(
+  transaction: Transaction,
+  server: Server,
+  accounts: AccountResponse[] = []
+): Promise<string[]> {
+  const sourceAccounts = await getSourceAccounts(transaction, server, accounts);
+  const signers = sourceAccounts
+    .map(account => {
+      // get signers for each source account
+      return account.signers
+        .filter(signer =>
+          hasAccountSignedTransaction(signer.public_key, transaction)
+        )
+        .map(signer => signer.public_key);
+    })
+    .reduce(
+      // flatten
+      (accumulator, currentValue) => accumulator.concat(currentValue),
+      []
+    );
+
+  return Array.from(new Set(signers)); // remove duplicates
 }
 
 function getTransactionSourceThresholdCategories(
