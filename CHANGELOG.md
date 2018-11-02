@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.4.0"></a>
+# [0.4.0](https://github.com/stellarguard/multisig-utils/compare/v0.3.2...v0.4.0) (2018-11-02)
+
+
+### Bug Fixes
+
+* submitToMultisigServer uses JSON body ([2ce15b0](https://github.com/stellarguard/multisig-utils/commit/2ce15b0))
+
+
+### Features
+
+* Add getSigners method ([0e97566](https://github.com/stellarguard/multisig-utils/commit/0e97566))
+
+
+
 <a name="0.3.2"></a>
 ## [0.3.2](https://github.com/stellarguard/multisig-utils/compare/v0.3.1...v0.3.2) (2018-10-31)
 
