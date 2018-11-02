@@ -96,7 +96,8 @@
 								<li class="tsd-kind-function"><a href="globals.html#getmultisigserverendpoint" class="tsd-kind-icon">get<wbr>Multisig<wbr>Server<wbr>Endpoint</a></li>
 								<li class="tsd-kind-function tsd-is-not-exported"><a href="globals.html#getrequiredweights" class="tsd-kind-icon">get<wbr>Required<wbr>Weights</a></li>
 								<li class="tsd-kind-function tsd-is-not-exported"><a href="globals.html#getsignatureweights" class="tsd-kind-icon">get<wbr>Signature<wbr>Weights</a></li>
-								<li class="tsd-kind-function tsd-is-not-exported"><a href="globals.html#getsourceaccounts" class="tsd-kind-icon">get<wbr>Source<wbr>Accounts</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#getsigners" class="tsd-kind-icon">get<wbr>Signers</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#getsourceaccounts" class="tsd-kind-icon">get<wbr>Source<wbr>Accounts</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#getthresholdcategory" class="tsd-kind-icon">get<wbr>Threshold<wbr>Category</a></li>
 								<li class="tsd-kind-function tsd-is-not-exported"><a href="globals.html#gettransactionsourcethresholdcategories" class="tsd-kind-icon">get<wbr>Transaction<wbr>Source<wbr>Threshold<wbr>Categories</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#hasaccountsignedtransaction" class="tsd-kind-icon">has<wbr>Account<wbr>Signed<wbr>Transaction</a></li>
@@ -115,7 +116,7 @@
 					<div class="tsd-signature tsd-kind-icon">Weight<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/72146bb/src/lib/multisig.ts#L74">lib/multisig.ts:74</a></li>
+							<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/0e97566/src/lib/multisig.ts#L73">lib/multisig.ts:73</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -132,7 +133,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/72146bb/src/lib/multisig.ts#L90">lib/multisig.ts:90</a></li>
+									<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/0e97566/src/lib/multisig.ts#L89">lib/multisig.ts:89</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -158,7 +159,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/72146bb/src/lib/multisig.ts#L237">lib/multisig.ts:237</a></li>
+									<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/0e97566/src/lib/multisig.ts#L274">lib/multisig.ts:274</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -184,7 +185,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/72146bb/src/lib/multisig.ts#L255">lib/multisig.ts:255</a></li>
+									<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/0e97566/src/lib/multisig.ts#L292">lib/multisig.ts:292</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -216,7 +217,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/72146bb/src/lib/multisig.ts#L76">lib/multisig.ts:76</a></li>
+									<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/0e97566/src/lib/multisig.ts#L75">lib/multisig.ts:75</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -242,7 +243,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/72146bb/src/lib/multisig.ts#L198">lib/multisig.ts:198</a></li>
+									<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/0e97566/src/lib/multisig.ts#L235">lib/multisig.ts:235</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -269,29 +270,86 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-is-not-exported">
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="getsigners" class="tsd-anchor"></a>
+					<h3>get<wbr>Signers</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Signers<span class="tsd-signature-symbol">(</span>transaction<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Transaction</span>, server<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Server</span>, accounts<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">AccountResponse</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/0e97566/src/lib/multisig.ts#L144">lib/multisig.ts:144</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns a list of public keys that have signed the transaction.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>transaction: <span class="tsd-signature-type">Transaction</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The transaction to check.</p>
+									</div>
+								</li>
+								<li>
+									<h5>server: <span class="tsd-signature-type">Server</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The server to use to look up source accounts.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> accounts: <span class="tsd-signature-type">AccountResponse</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A list of accounts to use instead of looking them up on horizon;</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="getsourceaccounts" class="tsd-anchor"></a>
 					<h3>get<wbr>Source<wbr>Accounts</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-is-not-exported">
+					<ul class="tsd-signatures tsd-kind-function">
 						<li class="tsd-signature tsd-kind-icon">get<wbr>Source<wbr>Accounts<span class="tsd-signature-symbol">(</span>transaction<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Transaction</span>, server<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Server</span>, accounts<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">AccountResponse</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AccountResponse</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/72146bb/src/lib/multisig.ts#L110">lib/multisig.ts:110</a></li>
+									<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/0e97566/src/lib/multisig.ts#L116">lib/multisig.ts:116</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets a list of source accounts for the given transaction.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>transaction: <span class="tsd-signature-type">Transaction</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The transaction</p>
+									</div>
 								</li>
 								<li>
 									<h5>server: <span class="tsd-signature-type">Server</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The Horizon server to use to look up account details</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> accounts: <span class="tsd-signature-type">AccountResponse</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A list of accounts to use instead of looking them up on horizon;</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AccountResponse</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -308,7 +366,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/72146bb/src/lib/multisig.ts#L154">lib/multisig.ts:154</a></li>
+									<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/0e97566/src/lib/multisig.ts#L191">lib/multisig.ts:191</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -339,7 +397,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/72146bb/src/lib/multisig.ts#L131">lib/multisig.ts:131</a></li>
+									<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/0e97566/src/lib/multisig.ts#L168">lib/multisig.ts:168</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -362,7 +420,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/72146bb/src/lib/multisig.ts#L224">lib/multisig.ts:224</a></li>
+									<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/0e97566/src/lib/multisig.ts#L261">lib/multisig.ts:261</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -399,7 +457,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/72146bb/src/lib/multisig.ts#L49">lib/multisig.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/0e97566/src/lib/multisig.ts#L48">lib/multisig.ts:48</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -444,7 +502,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/72146bb/src/lib/multisig.ts#L322">lib/multisig.ts:322</a></li>
+									<li>Defined in <a href="https://github.com/stellarguard/multisig-utils/blob/0e97566/src/lib/multisig.ts#L359">lib/multisig.ts:359</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -521,7 +579,10 @@
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#getsignatureweights" class="tsd-kind-icon">get<wbr>Signature<wbr>Weights</a>
 					</li>
-					<li class=" tsd-kind-function tsd-is-not-exported">
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getsigners" class="tsd-kind-icon">get<wbr>Signers</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="globals.html#getsourceaccounts" class="tsd-kind-icon">get<wbr>Source<wbr>Accounts</a>
 					</li>
 					<li class=" tsd-kind-function">
