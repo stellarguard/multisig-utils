@@ -55,8 +55,7 @@
   },
   "dependencies": {
     "@types/stellar-sdk": "^0.10.3",
-    "axios": "^0.18.0",
-    "querystring": "^0.2.0"
+    "axios": "^0.18.0"
   },
   "peerDependencies": {
     "stellar-sdk": "*"

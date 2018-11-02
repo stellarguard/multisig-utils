@@ -9,7 +9,6 @@ import {
 } from 'stellar-sdk';
 
 import axios from 'axios';
-import querystring from 'querystring';
 
 /**
  * The threshold categories that correspond to different operation types.
@@ -329,7 +328,7 @@ export async function submitToMultisigServer(
 
   const response = await axios.post<MultisigServerResponse>(
     multisigServerEndpoint,
-    querystring.stringify(params)
+    params
   );
 
   return response.data;
