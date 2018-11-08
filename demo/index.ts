@@ -78,7 +78,7 @@ async function submit(xdr: string): Promise<any> {
           `Successfully submitted to multisig server: ${JSON.stringify(result)}`
         );
       }
-      log(`Check the status at: ${result._links.status.href}`);
+      log(`Check the status at: ${result.statusHref}`);
     } else {
       log(
         `Requires more signature, but no multisig endpoint defined for ${
