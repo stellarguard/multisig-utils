@@ -54,7 +54,6 @@
     "node": ">=8.9"
   },
   "dependencies": {
-    "@types/stellar-sdk": "^0.10.3",
     "axios": "^0.18.0"
   },
   "peerDependencies": {
@@ -76,8 +75,9 @@
     "parcel-bundler": "^1.10.3",
     "prettier": "^1.14.3",
     "standard-version": "^4.4.0",
-    "stellar-sdk": "^0.11.0",
+    "stellar-sdk": "^1.0.2",
     "trash-cli": "^1.4.0",
+    "ts-node": "^8.1.0",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
     "tslint-immutable": "^4.7.0",

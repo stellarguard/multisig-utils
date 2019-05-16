@@ -1,11 +1,9 @@
 import {
-  AccountResponse,
   Keypair,
   Operation,
   Server,
   StellarTomlResolver,
-  Transaction,
-  TransactionOperation
+  Transaction
 } from 'stellar-sdk';
 
 import axios from 'axios';
@@ -23,7 +21,7 @@ export interface NeedsSignatures {
   /**
    * The account that needs more signatures.
    */
-  account: AccountResponse;
+  account: Server.AccountResponse;
 
   /**
    * The required weight for this transaction.
@@ -48,7 +46,7 @@ export interface NeedsSignatures {
 export async function needsMoreSignatures(
   transaction: Transaction,
   server: Server,
-  ...accounts: AccountResponse[]
+  ...accounts: Server.AccountResponse[]
 ): Promise<NeedsSignatures[] | false> {
   const sourceAccounts = await getSourceAccounts(transaction, server, accounts);
   const thresholdCategories = getTransactionSourceThresholdCategories(
@@ -73,10 +71,10 @@ export async function needsMoreSignatures(
 type Weight = number;
 
 function getRequiredWeights(
-  sourceAccounts: AccountResponse[],
+  sourceAccounts: Server.AccountResponse[],
   sourceThresholdCatgories: Map<string, ThresholdCategory>
-): Map<AccountResponse, Weight> {
-  const weights = new Map<AccountResponse, Weight>();
+): Map<Server.AccountResponse, Weight> {
+  const weights = new Map<Server.AccountResponse, Weight>();
   sourceAccounts.forEach(account => {
     const thresholdType = sourceThresholdCatgories.get(account.id);
     const weight = getAccountThresholdWeight(account, thresholdType);
@@ -87,7 +85,7 @@ function getRequiredWeights(
 }
 
 function getAccountThresholdWeight(
-  account: AccountResponse,
+  account: Server.AccountResponse,
   thresholdType: ThresholdCategory
 ): Weight {
   let weight = 0;
@@ -116,10 +114,10 @@ function getAccountThresholdWeight(
 export async function getSourceAccounts(
   transaction: Transaction,
   server: Server,
-  accounts: AccountResponse[] = []
-): Promise<AccountResponse[]> {
+  accounts: Server.AccountResponse[] = []
+): Promise<Server.AccountResponse[]> {
   const sources = new Set<string>([transaction.source]);
-  const cachedAccounts = new Map<string, AccountResponse>();
+  const cachedAccounts = new Map<string, Server.AccountResponse>();
   accounts.forEach(account => cachedAccounts.set(account.id, account));
   transaction.operations.forEach(operation => {
     if (operation.source) {
@@ -144,17 +142,15 @@ export async function getSourceAccounts(
 export async function getSigners(
   transaction: Transaction,
   server: Server,
-  accounts: AccountResponse[] = []
+  accounts: Server.AccountResponse[] = []
 ): Promise<string[]> {
   const sourceAccounts = await getSourceAccounts(transaction, server, accounts);
   const signers = sourceAccounts
     .map(account => {
       // get signers for each source account
-      return account.signers
-        .filter(signer =>
-          hasAccountSignedTransaction(signer.public_key, transaction)
-        )
-        .map(signer => signer.public_key);
+      return (account.signers as any[])
+        .filter(signer => hasAccountSignedTransaction(signer.key, transaction))
+        .map(signer => signer.key);
     })
     .reduce(
       // flatten
@@ -188,9 +184,7 @@ function getTransactionSourceThresholdCategories(
  *
  * @param operation The operation for which to get the threshold category.
  */
-export function getThresholdCategory(
-  operation: TransactionOperation
-): ThresholdCategory {
+export function getThresholdCategory(operation: Operation): ThresholdCategory {
   const type = operation.type;
   if (type === 'allowTrust' || type === 'bumpSequence') {
     return ThresholdCategory.Low;
@@ -222,7 +216,7 @@ export function getThresholdCategory(
  * Contains how much weight an account currently has satisfied for the given transaction.
  */
 interface AccountSignatureWeight {
-  account: AccountResponse;
+  account: Server.AccountResponse;
   currentWeight: Weight;
 }
 
@@ -234,13 +228,14 @@ interface AccountSignatureWeight {
  */
 function getSignatureWeights(
   transaction: Transaction,
-  sourceAccounts: AccountResponse[]
+  sourceAccounts: Server.AccountResponse[]
 ): AccountSignatureWeight[] {
-  const map = new Map<AccountResponse, Weight>();
+  const map = new Map<Server.AccountResponse, Weight>();
   sourceAccounts.forEach(account => {
     map.set(account, 0);
-    account.signers.forEach(signer => {
-      if (hasAccountSignedTransaction(signer.public_key, transaction)) {
+    (account.signers as any[]).forEach(signer => {
+      // TODO - remove any
+      if (hasAccountSignedTransaction(signer.key, transaction)) {
         const previousWeight = map.get(account);
         map.set(account, previousWeight + signer.weight);
       }
@@ -273,7 +268,7 @@ export function hasAccountSignedTransaction(
 
 function getAccountsThatNeedAdditionalSignatures(
   accountWeights: AccountSignatureWeight[],
-  requiredWeights: Map<AccountResponse, Weight>
+  requiredWeights: Map<Server.AccountResponse, Weight>
 ): NeedsSignatures[] {
   return accountWeights
     .map(({ account, currentWeight }) => {
@@ -290,7 +285,7 @@ function getAccountsThatNeedAdditionalSignatures(
  * @param account The account to get the multisig server endpoint for.
  */
 export async function getMultisigServerEndpoint(
-  account: AccountResponse
+  account: Server.AccountResponse
 ): Promise<string | undefined> {
   const multisigDomain =
     account.data_attr && account.data_attr['multisig.domain'];

@@ -43,7 +43,7 @@ test.before(() => {
 
 test('needsAdditionalSignatures with basic account returns false when fully signed', async t => {
   const source = await server.loadAccount(basicAccount.publicKey());
-  const transaction = new TransactionBuilder(source)
+  const transaction = new TransactionBuilder(source, { fee: 100 })
     .addOperation(
       Operation.payment({
         amount: '1',
@@ -51,6 +51,7 @@ test('needsAdditionalSignatures with basic account returns false when fully sign
         destination: basicAccount.publicKey()
       })
     )
+    .setTimeout(0)
     .build();
 
   transaction.sign(basicAccount);
@@ -60,7 +61,7 @@ test('needsAdditionalSignatures with basic account returns false when fully sign
 
 test('needsAdditionalSignatures with basic account returns one account that needs signatures', async t => {
   const source = await server.loadAccount(basicAccount.publicKey());
-  const transaction = new TransactionBuilder(source)
+  const transaction = new TransactionBuilder(source, { fee: 100 })
     .addOperation(
       Operation.payment({
         amount: '1',
@@ -68,6 +69,7 @@ test('needsAdditionalSignatures with basic account returns one account that need
         destination: basicAccount.publicKey()
       })
     )
+    .setTimeout(0)
     .build();
 
   const additionalSignatures = (await needsMoreSignatures(
@@ -84,7 +86,7 @@ test('needsAdditionalSignatures with basic account returns one account that need
 
 test('needsAdditionalSignatures with twoSignersAccount returns one account that needs signatures', async t => {
   const source = await server.loadAccount(twoSignersAccount.publicKey());
-  const transaction = new TransactionBuilder(source)
+  const transaction = new TransactionBuilder(source, { fee: 100 })
     .addOperation(
       Operation.payment({
         amount: '1',
@@ -92,6 +94,7 @@ test('needsAdditionalSignatures with twoSignersAccount returns one account that 
         destination: twoSignersAccount.publicKey()
       })
     )
+    .setTimeout(0)
     .build();
 
   const additionalSignatures = (await needsMoreSignatures(
@@ -108,7 +111,7 @@ test('needsAdditionalSignatures with twoSignersAccount returns one account that 
 
 test('needsAdditionalSignatures with twoSignersAccount returns false when the additional signer signs it', async t => {
   const source = await server.loadAccount(twoSignersAccount.publicKey());
-  const transaction = new TransactionBuilder(source)
+  const transaction = new TransactionBuilder(source, { fee: 100 })
     .addOperation(
       Operation.payment({
         amount: '1',
@@ -116,6 +119,7 @@ test('needsAdditionalSignatures with twoSignersAccount returns false when the ad
         destination: twoSignersAccount.publicKey()
       })
     )
+    .setTimeout(0)
     .build();
 
   transaction.sign(signingAccount);
@@ -126,7 +130,7 @@ test('needsAdditionalSignatures with twoSignersAccount returns false when the ad
 
 test('needsAdditionalSignatures with multisigAccount returns false when both signers sign it', async t => {
   const source = await server.loadAccount(multiSigAccount.publicKey());
-  const transaction = new TransactionBuilder(source)
+  const transaction = new TransactionBuilder(source, { fee: 100 })
     .addOperation(
       Operation.payment({
         amount: '1',
@@ -134,6 +138,7 @@ test('needsAdditionalSignatures with multisigAccount returns false when both sig
         destination: multiSigAccount.publicKey()
       })
     )
+    .setTimeout(0)
     .build();
 
   transaction.sign(multiSigAccount, signingAccount);
@@ -145,7 +150,7 @@ test('needsAdditionalSignatures with multisigAccount returns false when both sig
 
 test('needsAdditionalSignatures with multisigAccount returns the account that needs signatures when one signs it', async t => {
   const source = await server.loadAccount(multiSigAccount.publicKey());
-  const transaction = new TransactionBuilder(source)
+  const transaction = new TransactionBuilder(source, { fee: 100 })
     .addOperation(
       Operation.payment({
         amount: '1',
@@ -153,6 +158,7 @@ test('needsAdditionalSignatures with multisigAccount returns the account that ne
         destination: multiSigAccount.publicKey()
       })
     )
+    .setTimeout(0)
     .build();
 
   transaction.sign(multiSigAccount);
@@ -172,7 +178,7 @@ test('needsAdditionalSignatures with multisigAccount returns the account that ne
 
 test('needsAdditionalSignatures with multiple sources returns all accounts that need signatures', async t => {
   const source = await server.loadAccount(basicAccount.publicKey());
-  const transaction = new TransactionBuilder(source)
+  const transaction = new TransactionBuilder(source, { fee: 100 })
     .addOperation(
       Operation.payment({
         amount: '1',
@@ -196,6 +202,7 @@ test('needsAdditionalSignatures with multiple sources returns all accounts that 
         source: multiSigAccount.publicKey()
       })
     )
+    .setTimeout(0)
     .build();
 
   transaction.sign(basicAccount);
@@ -219,7 +226,7 @@ test('needsAdditionalSignatures with multiple sources returns all accounts that 
 
 test('hasAccountSignedTransaction returns false when the account has not signed the transaction', async t => {
   const source = await server.loadAccount(basicAccount.publicKey());
-  const transaction = new TransactionBuilder(source)
+  const transaction = new TransactionBuilder(source, { fee: 100 })
     .addOperation(
       Operation.payment({
         amount: '1',
@@ -227,6 +234,7 @@ test('hasAccountSignedTransaction returns false when the account has not signed 
         destination: basicAccount.publicKey()
       })
     )
+    .setTimeout(0)
     .build();
 
   transaction.sign(multiSigAccount);
@@ -236,7 +244,7 @@ test('hasAccountSignedTransaction returns false when the account has not signed 
 
 test('hasAccountSignedTransaction returns false when the transaction includes a signature for a different transaction', async t => {
   const source = await server.loadAccount(basicAccount.publicKey());
-  const transaction = new TransactionBuilder(source)
+  const transaction = new TransactionBuilder(source, { fee: 100 })
     .addOperation(
       Operation.payment({
         amount: '1',
@@ -244,9 +252,10 @@ test('hasAccountSignedTransaction returns false when the transaction includes a 
         destination: basicAccount.publicKey()
       })
     )
+    .setTimeout(0)
     .build();
 
-  const otherTx = new TransactionBuilder(source)
+  const otherTx = new TransactionBuilder(source, { fee: 100 })
     .addOperation(
       Operation.payment({
         amount: '2',
@@ -254,6 +263,7 @@ test('hasAccountSignedTransaction returns false when the transaction includes a 
         destination: basicAccount.publicKey()
       })
     )
+    .setTimeout(0)
     .build();
 
   otherTx.sign(basicAccount);
@@ -265,7 +275,7 @@ test('hasAccountSignedTransaction returns false when the transaction includes a 
 
 test('hasAccountSignedTransaction returns true when the transaction is signed by the user', async t => {
   const source = await server.loadAccount(basicAccount.publicKey());
-  const transaction = new TransactionBuilder(source)
+  const transaction = new TransactionBuilder(source, { fee: 100 })
     .addOperation(
       Operation.payment({
         amount: '1',
@@ -273,6 +283,7 @@ test('hasAccountSignedTransaction returns true when the transaction is signed by
         destination: basicAccount.publicKey()
       })
     )
+    .setTimeout(0)
     .build();
 
   transaction.sign(basicAccount);
@@ -282,7 +293,7 @@ test('hasAccountSignedTransaction returns true when the transaction is signed by
 
 test('getSigners gets all signers for a transaction', async t => {
   const source = await server.loadAccount(basicAccount.publicKey());
-  const transaction = new TransactionBuilder(source)
+  const transaction = new TransactionBuilder(source, { fee: 100 })
     .addOperation(
       Operation.payment({
         amount: '1',
@@ -306,6 +317,7 @@ test('getSigners gets all signers for a transaction', async t => {
         source: multiSigAccount.publicKey()
       })
     )
+    .setTimeout(0)
     .build();
 
   transaction.sign(basicAccount);
