@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/stellarguard/multisig-utils/compare/v0.4.1...v1.0.0) (2019-05-16)
+
+
+### Chores
+
+* **dependencies:** Ugrade to stellar-sdk 1.0 ([474c373](https://github.com/stellarguard/multisig-utils/commit/474c373))
+
+
+### BREAKING CHANGES
+
+* **dependencies:** Removes @types/stellar-sdk as a dependency. You must use the types directly from stellar-sdk
+
+
+
 <a name="0.4.1"></a>
 ## [0.4.1](https://github.com/stellarguard/multisig-utils/compare/v0.4.0...v0.4.1) (2018-11-08)
 
