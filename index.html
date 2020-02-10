@@ -56,7 +56,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1> @stellarguard/multisig-utils</h1>
+			<h1>@stellarguard/multisig-utils</h1>
 		</div>
 	</div>
 </header>
@@ -64,13 +64,19 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<h1 id="-stellarguard-multisig-utils">@stellarguard/multisig-utils</h1>
+				<a href="#stellarguardmultisig-utils" id="stellarguardmultisig-utils" style="color: inherit; text-decoration: none;">
+					<h1>@stellarguard/multisig-utils</h1>
+				</a>
 				<p>Utilities for working with Stellar mulitsig.</p>
-				<h2 id="installation">Installation</h2>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h2>Installation</h2>
+				</a>
 				<pre><code class="language-bash">npm install @stellarguard/multisig-utils --save
 <span class="hljs-comment"># or</span>
 yarn add @stellarguard/multisig-utils</code></pre>
-				<h2 id="usage">Usage</h2>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
+				</a>
 				<pre><code class="language-js"><span class="hljs-keyword">import</span> {
   needsMoreSignatures,
   getMultisigServerEndpoint,
@@ -90,10 +96,14 @@ yarn add @stellarguard/multisig-utils</code></pre>
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Authorize your transaction at <span class="hljs-subst">${result.url}</span>`</span>);
   }
 }</code></pre>
-				<h2 id="examples">Examples</h2>
+				<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+					<h2>Examples</h2>
+				</a>
 				<p>See <a href="https://github.com/stellarguard/multisig-utils/blob/master/src/example.ts">example.ts</a> for examples.</p>
 				<p>Try a <a href="https://stellarguard.github.io/multisig-utils/demo">live demo</a>.</p>
-				<h2 id="limitations">Limitations</h2>
+				<a href="#limitations" id="limitations" style="color: inherit; text-decoration: none;">
+					<h2>Limitations</h2>
+				</a>
 				<ol>
 					<li>needsMoreSignatures currently only works with public key signers.</li>
 					<li>needsMoreSignatures does not correctly identify that an account needs more signatures if the transaction changes something (like adds more signers, creates new accounts and then uses them, changes thresholds) that would then require more signers for a later operation in the transaction.</li>
@@ -113,7 +123,7 @@ yarn add @stellarguard/multisig-utils</code></pre>
 					<li class=" tsd-kind-enum">
 						<a href="enums/thresholdcategory.html" class="tsd-kind-icon">Threshold<wbr>Category</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-is-not-exported">
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/accountsignatureweight.html" class="tsd-kind-icon">Account<wbr>Signature<wbr>Weight</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -125,22 +135,22 @@ yarn add @stellarguard/multisig-utils</code></pre>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/stellarguardresponse.html" class="tsd-kind-icon">Stellar<wbr>Guard<wbr>Response</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-is-not-exported">
+					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#weight" class="tsd-kind-icon">Weight</a>
 					</li>
-					<li class=" tsd-kind-function tsd-is-not-exported">
+					<li class=" tsd-kind-function">
 						<a href="globals.html#getaccountthresholdweight" class="tsd-kind-icon">get<wbr>Account<wbr>Threshold<wbr>Weight</a>
 					</li>
-					<li class=" tsd-kind-function tsd-is-not-exported">
+					<li class=" tsd-kind-function">
 						<a href="globals.html#getaccountsthatneedadditionalsignatures" class="tsd-kind-icon">get<wbr>Accounts<wbr>That<wbr>Need<wbr>Additional<wbr>Signatures</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#getmultisigserverendpoint" class="tsd-kind-icon">get<wbr>Multisig<wbr>Server<wbr>Endpoint</a>
 					</li>
-					<li class=" tsd-kind-function tsd-is-not-exported">
+					<li class=" tsd-kind-function">
 						<a href="globals.html#getrequiredweights" class="tsd-kind-icon">get<wbr>Required<wbr>Weights</a>
 					</li>
-					<li class=" tsd-kind-function tsd-is-not-exported">
+					<li class=" tsd-kind-function">
 						<a href="globals.html#getsignatureweights" class="tsd-kind-icon">get<wbr>Signature<wbr>Weights</a>
 					</li>
 					<li class=" tsd-kind-function">
@@ -152,7 +162,7 @@ yarn add @stellarguard/multisig-utils</code></pre>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#getthresholdcategory" class="tsd-kind-icon">get<wbr>Threshold<wbr>Category</a>
 					</li>
-					<li class=" tsd-kind-function tsd-is-not-exported">
+					<li class=" tsd-kind-function">
 						<a href="globals.html#gettransactionsourcethresholdcategories" class="tsd-kind-icon">get<wbr>Transaction<wbr>Source<wbr>Threshold<wbr>Categories</a>
 					</li>
 					<li class=" tsd-kind-function">
@@ -181,6 +191,7 @@ yarn add @stellarguard/multisig-utils</code></pre>
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
@@ -229,7 +240,7 @@ yarn add @stellarguard/multisig-utils</code></pre>
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>
