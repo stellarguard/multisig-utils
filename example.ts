@@ -4,12 +4,12 @@ import {
   submitToMultisigServer
 } from '@stellarguard/multisig-utils';
 import { TransactionStellarUri } from '@stellarguard/stellar-uri';
-import { Network, Server, Transaction } from 'stellar-sdk';
+import { Network, Networks, Server, Transaction } from 'stellar-sdk';
 
 async function example(): Promise<any> {
   const xdr =
     'AAAAAJGPH15xlQ7jI0OCRbJtbQIXCzGEksFaWkFIj+u/wB09AAAAZAADBg0AAAACAAAAAAAAAAAAAAABAAAAAAAAAAoAAAAPbXVsdGlzaWdfc2VydmVyAAAAAAEAAAAUdGVzdC5zdGVsbGFyZ3VhcmQubWUAAAAAAAAAAb/AHT0AAABA7m74KsutOpKcSx8b8/LdIB+OeWklIveKGQ1B5EjNCyfAy+/tYML3YYoRi5ju7pw5HalLlG4Mh32jqqyZe0QVAQ==';
-  const transaction = new Transaction(xdr);
+  const transaction = new Transaction(xdr, Networks.TESTNET);
   Network.useTestNetwork();
   const server = new Server('https://horizon-testnet.stellar.org');
 

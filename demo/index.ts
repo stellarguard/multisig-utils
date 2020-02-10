@@ -8,7 +8,17 @@ import {
 import 'babel-polyfill';
 
 import { TransactionStellarUri } from '@stellarguard/stellar-uri';
-import { Network, Server, Transaction } from 'stellar-sdk';
+import {
+  AccountResponse,
+  Asset,
+  Keypair,
+  Network,
+  Networks,
+  Operation,
+  Server,
+  Transaction,
+  TransactionBuilder
+} from 'stellar-sdk';
 
 const server = new Server('https://horizon-testnet.stellar.org');
 Network.useTestNetwork();
@@ -17,16 +27,89 @@ const $xdr = document.querySelector('textarea') as HTMLTextAreaElement;
 const $form = document.querySelector('form') as HTMLFormElement;
 const $log = document.querySelector('#log');
 
-const demoXdr =
-  'AAAAAHFd0+HQV5u/Y/fM3+VelUr1IWwSFL8CUDIAUudUdD4MAAAAZAADyI8AAAADAAAAAAAAAAAAAAABAAAAAAAAAAEAAAAAcV3T4dBXm79j98zf5V6VSvUhbBIUvwJQMgBS51R0PgwAAAAAAAAAAACYloAAAAAAAAAAAVR0PgwAAABAEw8ODG0iixkbAHg1aJATAnZS2531PhGauuSvFDad2WxHKzIenUNbc7K5mGiSpe5jvqe19OQCbNFuBjqN11jfBw==';
+const keypair = Keypair.fromSecret(
+  'SDZQUARBO43LWTFD3KHEZKP64A5MVTHHHFHTA42PZIVYYHGWNG7TKVQE'
+);
+
+const signingAccount =
+  'GBTPNUSDRHLA2A3XLNTQ3DORGBW6QNA6SMKDYUBBM6KX63T4YVODCIZS';
+
+function sleep(time: number): Promise<any> {
+  return new Promise(resolve => {
+    setTimeout(resolve, time);
+  });
+}
+
+async function fundWithFriendBot(publicKey: string): Promise<AccountResponse> {
+  try {
+    await fetch(`https://friendbot.stellar.org/?addr=${publicKey}`);
+    await sleep(15000); // give horizon some time to pick it up
+  } catch (e) {
+    console.log(e);
+  }
+
+  return server.loadAccount(publicKey);
+}
+
+async function loadAccount(): Promise<AccountResponse> {
+  const publicKey = keypair.publicKey();
+  try {
+    return await server.loadAccount(publicKey);
+  } catch (e) {
+    const source = await fundWithFriendBot(publicKey);
+    const transaction = new TransactionBuilder(source, {
+      fee: 100,
+      networkPassphrase: Networks.TESTNET
+    })
+      .addOperation(
+        Operation.manageData({
+          name: 'multisig.domain',
+          value: 'test.stellarguard.me'
+        })
+      )
+      .addOperation(
+        Operation.setOptions({
+          highThreshold: 20,
+          lowThreshold: 20,
+          masterWeight: 10,
+          medThreshold: 20,
+          signer: {
+            ed25519PublicKey: signingAccount,
+            weight: 10
+          }
+        })
+      )
+      .setTimeout(0)
+      .build();
+
+    transaction.sign(keypair);
+    await server.submitTransaction(transaction);
+    return source;
+  }
+}
 
 init();
 
-function init(): void {
-  $xdr.value = demoXdr;
-
+async function init(): Promise<void> {
   $form.removeEventListener('submit', onSubmit);
   $form.addEventListener('submit', onSubmit);
+  const source = await loadAccount();
+  const transaction = new TransactionBuilder(source, {
+    fee: 100,
+    networkPassphrase: Networks.TESTNET
+  })
+    .addOperation(
+      Operation.payment({
+        amount: '1',
+        asset: Asset.native(),
+        destination: keypair.publicKey()
+      })
+    )
+    .setTimeout(0)
+    .build();
+
+  transaction.sign(keypair);
+  $xdr.value = transaction.toEnvelope().toXDR('base64') as any;
 }
 
 async function onSubmit(ev: Event): Promise<void> {
@@ -47,7 +130,7 @@ function reset(): void {
 }
 
 async function submit(xdr: string): Promise<any> {
-  const transaction = new Transaction(xdr);
+  const transaction = new Transaction(xdr, Networks.TESTNET);
   log('Checking if the transaction requires more signatures...');
   const requiresSignatures = await needsMoreSignatures(transaction, server);
   if (requiresSignatures) {

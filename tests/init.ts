@@ -14,12 +14,12 @@ const basicAccount = Keypair.fromSecret(
   'SAHMBW53PCUXCQUBI7BTYV7SLBQXEWHERGDGQJVGFULMN43OCVBONARW'
 );
 
-// multisig, 1/1/1 threshold, 1 master weight, 1 additional signer, multisig_server: test.stellarguard.me
+// multisig, 1/1/1 threshold, 1 master weight, 1 additional signer, multisig.domain: test.stellarguard.me
 const twoSignersAccount = Keypair.fromSecret(
   'SCCZPCVAWXCHCTQ26PCCSOXEWUTDOTSF6UHEVYXYZXHKJ2V3UIN6A755'
 );
 
-// multisig, 2/2/2 threshold, 1 master weight, 1 additional signer, multisig_server: test.stellarguard.me
+// multisig, 2/2/2 threshold, 1 master weight, 1 additional signer, multisig.domain: test.stellarguard.me
 const multiSigAccount = Keypair.fromSecret(
   'SDOERPHI7YGP5ETZKFKW5GEUGWS7TCKBCQJERHXMRZOHE76Q2U2TY6XD'
 );

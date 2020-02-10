@@ -1,4 +1,5 @@
 import {
+  AccountResponse,
   Keypair,
   Operation,
   Server,
@@ -21,7 +22,7 @@ export interface NeedsSignatures {
   /**
    * The account that needs more signatures.
    */
-  account: Server.AccountResponse;
+  account: AccountResponse;
 
   /**
    * The required weight for this transaction.
@@ -46,7 +47,7 @@ export interface NeedsSignatures {
 export async function needsMoreSignatures(
   transaction: Transaction,
   server: Server,
-  ...accounts: Server.AccountResponse[]
+  ...accounts: AccountResponse[]
 ): Promise<NeedsSignatures[] | false> {
   const sourceAccounts = await getSourceAccounts(transaction, server, accounts);
   const thresholdCategories = getTransactionSourceThresholdCategories(
@@ -71,10 +72,10 @@ export async function needsMoreSignatures(
 type Weight = number;
 
 function getRequiredWeights(
-  sourceAccounts: Server.AccountResponse[],
+  sourceAccounts: AccountResponse[],
   sourceThresholdCatgories: Map<string, ThresholdCategory>
-): Map<Server.AccountResponse, Weight> {
-  const weights = new Map<Server.AccountResponse, Weight>();
+): Map<AccountResponse, Weight> {
+  const weights = new Map<AccountResponse, Weight>();
   sourceAccounts.forEach(account => {
     const thresholdType = sourceThresholdCatgories.get(account.id);
     const weight = getAccountThresholdWeight(account, thresholdType);
@@ -85,7 +86,7 @@ function getRequiredWeights(
 }
 
 function getAccountThresholdWeight(
-  account: Server.AccountResponse,
+  account: AccountResponse,
   thresholdType: ThresholdCategory
 ): Weight {
   let weight = 0;
@@ -114,10 +115,10 @@ function getAccountThresholdWeight(
 export async function getSourceAccounts(
   transaction: Transaction,
   server: Server,
-  accounts: Server.AccountResponse[] = []
-): Promise<Server.AccountResponse[]> {
+  accounts: AccountResponse[] = []
+): Promise<AccountResponse[]> {
   const sources = new Set<string>([transaction.source]);
-  const cachedAccounts = new Map<string, Server.AccountResponse>();
+  const cachedAccounts = new Map<string, AccountResponse>();
   accounts.forEach(account => cachedAccounts.set(account.id, account));
   transaction.operations.forEach(operation => {
     if (operation.source) {
@@ -142,13 +143,13 @@ export async function getSourceAccounts(
 export async function getSigners(
   transaction: Transaction,
   server: Server,
-  accounts: Server.AccountResponse[] = []
+  accounts: AccountResponse[] = []
 ): Promise<string[]> {
   const sourceAccounts = await getSourceAccounts(transaction, server, accounts);
   const signers = sourceAccounts
     .map(account => {
       // get signers for each source account
-      return (account.signers as any[])
+      return account.signers
         .filter(signer => hasAccountSignedTransaction(signer.key, transaction))
         .map(signer => signer.key);
     })
@@ -216,7 +217,7 @@ export function getThresholdCategory(operation: Operation): ThresholdCategory {
  * Contains how much weight an account currently has satisfied for the given transaction.
  */
 interface AccountSignatureWeight {
-  account: Server.AccountResponse;
+  account: AccountResponse;
   currentWeight: Weight;
 }
 
@@ -228,13 +229,12 @@ interface AccountSignatureWeight {
  */
 function getSignatureWeights(
   transaction: Transaction,
-  sourceAccounts: Server.AccountResponse[]
+  sourceAccounts: AccountResponse[]
 ): AccountSignatureWeight[] {
-  const map = new Map<Server.AccountResponse, Weight>();
+  const map = new Map<AccountResponse, Weight>();
   sourceAccounts.forEach(account => {
     map.set(account, 0);
-    (account.signers as any[]).forEach(signer => {
-      // TODO - remove any
+    account.signers.forEach(signer => {
       if (hasAccountSignedTransaction(signer.key, transaction)) {
         const previousWeight = map.get(account);
         map.set(account, previousWeight + signer.weight);
@@ -268,7 +268,7 @@ export function hasAccountSignedTransaction(
 
 function getAccountsThatNeedAdditionalSignatures(
   accountWeights: AccountSignatureWeight[],
-  requiredWeights: Map<Server.AccountResponse, Weight>
+  requiredWeights: Map<AccountResponse, Weight>
 ): NeedsSignatures[] {
   return accountWeights
     .map(({ account, currentWeight }) => {
@@ -285,7 +285,7 @@ function getAccountsThatNeedAdditionalSignatures(
  * @param account The account to get the multisig server endpoint for.
  */
 export async function getMultisigServerEndpoint(
-  account: Server.AccountResponse
+  account: AccountResponse
 ): Promise<string | undefined> {
   const multisigDomain =
     account.data_attr && account.data_attr['multisig.domain'];
