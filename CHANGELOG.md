@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/stellarguard/multisig-utils/compare/v1.0.0...v1.1.0) (2020-02-10)
+
+
+### Features
+
+* 🎸 Update to stellar sdk 4.0.0 ([3a4bb45](https://github.com/stellarguard/multisig-utils/commit/3a4bb45))
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/stellarguard/multisig-utils/compare/v0.4.1...v1.0.0) (2019-05-16)
 
