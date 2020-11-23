@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/stellarguard/multisig-utils/compare/v1.1.0...v2.0.0) (2020-11-23)
+
+
+### Features
+
+* upgrade to stellar-sdk 7.0.0 ([95a2583](https://github.com/stellarguard/multisig-utils/commit/95a2583))
+
+
+### BREAKING CHANGES
+
+* Requires a peerDependency of stellar-sdk ^7.0.0
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/stellarguard/multisig-utils/compare/v1.0.0...v1.1.0) (2020-02-10)
 
