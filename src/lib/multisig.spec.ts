@@ -4,7 +4,6 @@ import {
   AccountResponse,
   Asset,
   Keypair,
-  Network,
   Networks,
   Operation,
   Server,
@@ -78,7 +77,7 @@ async function loadTwoSignersAccount(): Promise<AccountResponse> {
   } catch (e) {
     const source = await fundWithFriendBot(publicKey);
     const transaction = new TransactionBuilder(source, {
-      fee: 100,
+      fee: '100',
       networkPassphrase: Networks.TESTNET
     })
       .addOperation(
@@ -116,7 +115,7 @@ async function loadMultisigAccount(): Promise<AccountResponse> {
   } catch (e) {
     const source = await fundWithFriendBot(publicKey);
     const transaction = new TransactionBuilder(source, {
-      fee: 100,
+      fee: '100',
       networkPassphrase: Networks.TESTNET
     })
       .addOperation(
@@ -151,13 +150,12 @@ test.before(async () => {
   await loadBasicAccount();
   await loadTwoSignersAccount();
   await loadMultisigAccount();
-  Network.useTestNetwork();
 });
 
 test('needsAdditionalSignatures with basic account returns false when fully signed', async t => {
   const source = await loadBasicAccount();
   const transaction = new TransactionBuilder(source, {
-    fee: 100,
+    fee: '100',
     networkPassphrase: Networks.TESTNET
   })
     .addOperation(
@@ -178,7 +176,7 @@ test('needsAdditionalSignatures with basic account returns false when fully sign
 test('needsAdditionalSignatures with basic account returns one account that needs signatures', async t => {
   const source = await loadBasicAccount();
   const transaction = new TransactionBuilder(source, {
-    fee: 100,
+    fee: '100',
     networkPassphrase: Networks.TESTNET
   })
     .addOperation(
@@ -206,7 +204,7 @@ test('needsAdditionalSignatures with basic account returns one account that need
 test('needsAdditionalSignatures with twoSignersAccount returns one account that needs signatures', async t => {
   const source = await loadTwoSignersAccount();
   const transaction = new TransactionBuilder(source, {
-    fee: 100,
+    fee: '100',
     networkPassphrase: Networks.TESTNET
   })
     .addOperation(
@@ -234,7 +232,7 @@ test('needsAdditionalSignatures with twoSignersAccount returns one account that 
 test('needsAdditionalSignatures with twoSignersAccount returns false when the additional signer signs it', async t => {
   const source = await loadTwoSignersAccount();
   const transaction = new TransactionBuilder(source, {
-    fee: 100,
+    fee: '100',
     networkPassphrase: Networks.TESTNET
   })
     .addOperation(
@@ -256,7 +254,7 @@ test('needsAdditionalSignatures with twoSignersAccount returns false when the ad
 test('needsAdditionalSignatures with multisigAccount returns false when both signers sign it', async t => {
   const source = await loadMultisigAccount();
   const transaction = new TransactionBuilder(source, {
-    fee: 100,
+    fee: '100',
     networkPassphrase: Networks.TESTNET
   })
     .addOperation(
@@ -279,7 +277,7 @@ test('needsAdditionalSignatures with multisigAccount returns false when both sig
 test('needsAdditionalSignatures with multisigAccount returns the account that needs signatures when one signs it', async t => {
   const source = await loadMultisigAccount();
   const transaction = new TransactionBuilder(source, {
-    fee: 100,
+    fee: '100',
     networkPassphrase: Networks.TESTNET
   })
     .addOperation(
@@ -310,7 +308,7 @@ test('needsAdditionalSignatures with multisigAccount returns the account that ne
 test('needsAdditionalSignatures with multiple sources returns all accounts that need signatures', async t => {
   const source = await loadBasicAccount();
   const transaction = new TransactionBuilder(source, {
-    fee: 100,
+    fee: '100',
     networkPassphrase: Networks.TESTNET
   })
     .addOperation(
@@ -361,7 +359,7 @@ test('needsAdditionalSignatures with multiple sources returns all accounts that 
 test('hasAccountSignedTransaction returns false when the account has not signed the transaction', async t => {
   const source = await loadBasicAccount();
   const transaction = new TransactionBuilder(source, {
-    fee: 100,
+    fee: '100',
     networkPassphrase: Networks.TESTNET
   })
     .addOperation(
@@ -382,7 +380,7 @@ test('hasAccountSignedTransaction returns false when the account has not signed 
 test('hasAccountSignedTransaction returns false when the transaction includes a signature for a different transaction', async t => {
   const source = await loadBasicAccount();
   const transaction = new TransactionBuilder(source, {
-    fee: 100,
+    fee: '100',
     networkPassphrase: Networks.TESTNET
   })
     .addOperation(
@@ -396,7 +394,7 @@ test('hasAccountSignedTransaction returns false when the transaction includes a 
     .build();
 
   const otherTx = new TransactionBuilder(source, {
-    fee: 100,
+    fee: '100',
     networkPassphrase: Networks.TESTNET
   })
     .addOperation(
@@ -419,7 +417,7 @@ test('hasAccountSignedTransaction returns false when the transaction includes a 
 test('hasAccountSignedTransaction returns true when the transaction is signed by the user', async t => {
   const source = await loadBasicAccount();
   const transaction = new TransactionBuilder(source, {
-    fee: 100,
+    fee: '100',
     networkPassphrase: Networks.TESTNET
   })
     .addOperation(
@@ -440,7 +438,7 @@ test('hasAccountSignedTransaction returns true when the transaction is signed by
 test('getSigners gets all signers for a transaction', async t => {
   const source = await loadBasicAccount();
   const transaction = new TransactionBuilder(source, {
-    fee: 100,
+    fee: '100',
     networkPassphrase: Networks.TESTNET
   })
     .addOperation(
