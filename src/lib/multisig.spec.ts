@@ -1,7 +1,7 @@
 import test from 'ava';
 
 import {
-  AccountResponse,
+  Account,
   Asset,
   Keypair,
   Networks,
@@ -55,25 +55,29 @@ function sleep(time: number): Promise<any> {
   });
 }
 
-async function fundWithFriendBot(publicKey: string): Promise<AccountResponse> {
+async function fundWithFriendBot(publicKey: string): Promise<Account> {
   await fetch(`https://friendbot.stellar.org/?addr=${publicKey}`);
   await sleep(15000); // give horizon some time to pick it up
-  return server.loadAccount(publicKey);
+  return loadAccount(publicKey);
 }
 
-async function loadBasicAccount(): Promise<AccountResponse> {
+function loadAccount(publicKey: string): Promise<Account> {
+  return (server.loadAccount(publicKey) as Promise<any>) as Promise<Account>; // workaround for AccountResponse not having createSubAccount in 8.2
+}
+
+async function loadBasicAccount(): Promise<Account> {
   const publicKey = basicAccount.publicKey();
   try {
-    return await server.loadAccount(publicKey);
+    return await loadAccount(publicKey);
   } catch (e) {
     return fundWithFriendBot(publicKey);
   }
 }
 
-async function loadTwoSignersAccount(): Promise<AccountResponse> {
+async function loadTwoSignersAccount(): Promise<Account> {
   const publicKey = twoSignersAccount.publicKey();
   try {
-    return await server.loadAccount(publicKey);
+    return await loadAccount(publicKey);
   } catch (e) {
     const source = await fundWithFriendBot(publicKey);
     const transaction = new TransactionBuilder(source, {
@@ -108,10 +112,10 @@ async function loadTwoSignersAccount(): Promise<AccountResponse> {
   }
 }
 
-async function loadMultisigAccount(): Promise<AccountResponse> {
+async function loadMultisigAccount(): Promise<Account> {
   const publicKey = multiSigAccount.publicKey();
   try {
-    return await server.loadAccount(publicKey);
+    return await loadAccount(publicKey);
   } catch (e) {
     const source = await fundWithFriendBot(publicKey);
     const transaction = new TransactionBuilder(source, {
