@@ -57,13 +57,13 @@
     "axios": "^0.18.0"
   },
   "peerDependencies": {
-    "stellar-sdk": "^7.0.0"
+    "stellar-sdk": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/runtime-corejs2": "^7.1.2",
-    "@stellarguard/stellar-uri": "^3.0.0",
+    "@stellarguard/stellar-uri": "^3.0.1",
     "ava": "1.0.0-beta.7",
     "babel-polyfill": "^6.26.0",
     "codecov": "^3.1.0",
@@ -75,7 +75,7 @@
     "parcel-bundler": "1.12.4",
     "prettier": "^1.14.3",
     "standard-version": "^4.4.0",
-    "stellar-sdk": "^7.0.0",
+    "stellar-sdk": "^8.0.0",
     "trash-cli": "^1.4.0",
     "ts-node": "^8.1.0",
     "tslint": "^5.11.0",
