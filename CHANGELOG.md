@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/stellarguard/multisig-utils/compare/v2.0.0...v2.0.1) (2021-05-29)
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/stellarguard/multisig-utils/compare/v1.1.0...v2.0.0) (2020-11-23)
 
